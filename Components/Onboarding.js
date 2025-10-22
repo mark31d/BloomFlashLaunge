@@ -37,7 +37,7 @@ const SLIDES = [
   { key: 'book',   title: 'Book in a Few Taps', text: 'Reserve your table straight from your phone.\nNo calls, no hassle — quick and modern.', image: ASSETS.hero1, color: '#FFD166' },
   { key: 'seats',  title: 'Smart Seating in Real-Time', text: 'See which seats are free right now.\nBuilt-in sensors keep availability accurate.', image: ASSETS.hero2, color: '#00E5FF' },
   { key: 'explore',title: 'Explore Games Ahead', text: 'Browse stations and visuals before you arrive.\nPick what you want to play.', image: ASSETS.hero3, color: '#FF4081' },
-  { key: 'qr',     title: 'Instant Entry with QR', text: 'Show your in-app QR at the door and start faster.\nWelcome to RunFitSportHub.', image: ASSETS.hero4, color: '#8B5CF6' },
+  { key: 'qr',     title: 'Instant Entry with QR', text: 'Show your in-app QR at the door and start faster.\nWelcome to BloomFlash Launge.', image: ASSETS.hero4, color: '#8B5CF6' },
 ];
 
 /* ------------ Buttons ------------- */

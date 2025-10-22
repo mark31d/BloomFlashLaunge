@@ -100,7 +100,6 @@ export default function GamesScreen() {
 
   const [query, setQuery] = useState('');
   const [speed, setSpeed] = useState('All');        // All | Very fast | Fast | Balanced
-  const [onlyFree, setOnlyFree] = useState(false);  // только игры, где есть свободные станции
   const [sort, setSort] = useState('Popular');      // Popular | Free first
 
   const [favs, setFavs] = useState([]);
@@ -151,16 +150,13 @@ export default function GamesScreen() {
     if (speed !== 'All') {
       arr = arr.filter((g) => g.speed === speed);
     }
-    if (onlyFree) {
-      arr = arr.filter((g) => g.stations.available.length > 0);
-    }
     if (sort === 'Popular') {
       arr.sort((a, b) => b.score - a.score);
     } else if (sort === 'Free first') {
       arr.sort((a, b) => b.stations.available.length - a.stations.available.length);
     }
     return arr;
-  }, [query, speed, onlyFree, sort]);
+  }, [query, speed, sort]);
 
   const openDetails = useCallback((id) => {
     navigation.navigate('GameDetails', { gameId: id });
@@ -206,17 +202,7 @@ export default function GamesScreen() {
 
           <Text style={[styles.label, { marginTop: 10 }]}>Show</Text>
           <View style={[styles.row, { gap: 8 }]}>
-            <Pressable
-              onPress={() => setOnlyFree((v) => !v)}
-              style={[
-                styles.segment,
-                { borderColor: onlyFree ? PALETTE.aqua : PALETTE.border, backgroundColor: onlyFree ? '#2B2B0F' : '#0E1231' },
-              ]}
-            >
-              <Text style={[styles.segmentText, { color: onlyFree ? PALETTE.aqua : 'rgba(255,255,255,0.85)' }]}>
-                Only free now
-              </Text>
-            </Pressable>
+            {/* Кнопка "Only free now" удалена */}
 
             <Pressable
               onPress={() => setSort((s) => (s === 'Popular' ? 'Free first' : 'Popular'))}
@@ -360,6 +346,8 @@ const styles = StyleSheet.create({
 
   segment: { flex: 1, paddingVertical: 10, borderWidth: 1, borderRadius: 12, alignItems: 'center' },
   segmentText: { color: 'rgba(255,255,255,0.85)', fontWeight: '700', fontSize: 12 },
+  
+  label: { color: PALETTE.text, fontSize: 14, fontWeight: '700', marginBottom: 8 },
 
   row: { flexDirection: 'row', alignItems: 'center' },
   rowBetween: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },

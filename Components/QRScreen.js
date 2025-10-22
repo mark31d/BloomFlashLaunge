@@ -12,8 +12,7 @@ import {
 } from 'react-native';
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import QRCode from 'react-native-qrcode';
-import { WebView } from 'react-native-webview';
+import QRCode from 'react-native-qrcode-svg';
 import LinearGradient from 'react-native-linear-gradient';
 
 const PALETTE = {
@@ -113,68 +112,9 @@ export default function QRScreen() {
     });
   }, [booking]);
 
-  const qrHtml = useMemo(() => {
+  const qrData = useMemo(() => {
     if (!payload) return null;
-    return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { 
-      margin: 0; 
-      padding: 0; 
-      background: white; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      height: 100vh; 
-      font-family: Arial, sans-serif;
-    }
-    .qr-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 240px;
-      height: 240px;
-      background: white;
-      border: 2px solid #000;
-      position: relative;
-    }
-    .qr-label {
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 8px;
-      color: #000;
-      text-align: center;
-    }
-    .qr-data {
-      font-size: 8px;
-      line-height: 1.2;
-      color: #000;
-      text-align: center;
-      word-break: break-all;
-      padding: 5px;
-      max-width: 220px;
-    }
-    .qr-ref {
-      font-size: 12px;
-      font-weight: bold;
-      color: #FFD166;
-      margin-top: 8px;
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  <div class="qr-container">
-    <div class="qr-label">RUNFITSPORTHUB</div>
-    <div class="qr-data">${payload}</div>
-    <div class="qr-ref">REF: ${payload ? JSON.parse(payload).ref : 'N/A'}</div>
-  </div>
-</body>
-</html>`;
+    return payload;
   }, [payload]);
 
 
@@ -182,8 +122,8 @@ export default function QRScreen() {
     if (!booking) return;
     try {
       await Share.share({
-        message: `RunFitSportHub booking\nRef: ${booking.ref}\nDate: ${booking.dateISO} ${booking.time}\nRoom: ${booking.room}\nGuests: ${booking.guests}`,
-        title: 'RunFitSportHub booking',
+        message: `BloomFlash Launge booking\nRef: ${booking.ref}\nDate: ${booking.dateISO} ${booking.time}\nRoom: ${booking.room}\nGuests: ${booking.guests}`,
+        title: 'BloomFlash Launge booking',
       });
     } catch (e) {
       Alert.alert('Share', 'Unable to share pass right now.');
@@ -215,22 +155,22 @@ export default function QRScreen() {
         {/* QR Card (белая подложка для надёжного сканирования) */}
         <View style={[styles.card, { alignItems: 'center', marginTop: 12 }]}>
           <View style={styles.qrWrap}>
-            {qrHtml ? (
-              <WebView
-                source={{ html: qrHtml }}
-                style={styles.qrWebView}
-                scrollEnabled={false}
-                bounces={false}
-                javaScriptEnabled
-                domStorageEnabled
-                startInLoadingState
-                renderLoading={() => (
-                  <View style={styles.qrLoading}>
-                    <Text style={styles.qrLoadingText}>Loading...</Text>
-                  </View>
-                )}
-              />
-            ) : null}
+            {qrData ? (
+              <View style={styles.qrContainer}>
+                <Text style={styles.qrLabel}>BloomFlash Launge</Text>
+                <QRCode
+                  value={qrData}
+                  size={200}
+                  color="#000000"
+                  backgroundColor="#FFFFFF"
+                />
+                <Text style={styles.qrRef}>REF: {booking?.ref || 'N/A'}</Text>
+              </View>
+            ) : (
+              <View style={styles.qrLoading}>
+                <Text style={styles.qrLoadingText}>Loading...</Text>
+              </View>
+            )}
           </View>
           <Text style={[styles.p, { marginTop: 10, textAlign: 'center' }]}>
             Show this code at the entrance for a quick check-in.
@@ -300,10 +240,25 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
   },
-  qrWebView: {
+  qrContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 240,
     height: 240,
-    backgroundColor: 'transparent',
+  },
+  qrLabel: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#000',
+    textAlign: 'center',
+  },
+  qrRef: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#FFD166',
+    marginTop: 8,
+    textAlign: 'center',
   },
   qrLoading: {
     width: 240,

@@ -11,12 +11,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-/**
- * Custom bottom tab bar for RunFitSportHub.
- * Props (из App.js):
- *  - colors: { bg, card, primary, success, danger, text, dim, border }
- *  - ...остальные пропсы обычного BottomTabBar (state, descriptors, navigation)
- */
+
 export default function CustomTabBar({ state, descriptors, navigation, colors }) {
   const insets = useSafeAreaInsets();
 
@@ -66,7 +61,7 @@ export default function CustomTabBar({ state, descriptors, navigation, colors })
       style={[
         styles.wrap,
         {
-          backgroundColor: 'rgba(0,0,0,0.35)',
+          backgroundColor: colors?.bg || '#0C0F2A',
           borderColor: colors?.border || 'rgba(255,255,255,0.18)',
           paddingBottom: Math.max(insets.bottom, 10),
         },
@@ -212,7 +207,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 3,
     borderRadius: 2,
-    opacity: Platform.select({ ios: 0.9, android: 0.95 }),
+    opacity: 1,
   },
 
   // badges
