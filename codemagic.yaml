@@ -1,6 +1,6 @@
 workflows:
   ios-workflow:
-    name: BloomFlash Launge
+    name: BrioCourt Lounge
     max_build_duration: 120
     integrations:
       app_store_connect: BloomFlashLaungeAPIKey
@@ -67,4 +67,4 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_app_store: true
-        copyright: BloomFlash Launge 2025
+        copyright: BrioCourt Lounge 2025

@@ -122,8 +122,8 @@ export default function QRScreen() {
     if (!booking) return;
     try {
       await Share.share({
-        message: `BloomFlash Launge booking\nRef: ${booking.ref}\nDate: ${booking.dateISO} ${booking.time}\nRoom: ${booking.room}\nGuests: ${booking.guests}`,
-        title: 'BloomFlash Launge booking',
+        message: `BrioCourt Lounge booking\nRef: ${booking.ref}\nDate: ${booking.dateISO} ${booking.time}\nRoom: ${booking.room}\nGuests: ${booking.guests}`,
+        title: 'BrioCourt Lounge booking',
       });
     } catch (e) {
       Alert.alert('Share', 'Unable to share pass right now.');
@@ -157,7 +157,7 @@ export default function QRScreen() {
           <View style={styles.qrWrap}>
             {qrData ? (
               <View style={styles.qrContainer}>
-                <Text style={styles.qrLabel}>BloomFlash Launge</Text>
+                <Text style={styles.qrLabel}>BrioCourt Lounge</Text>
                 <QRCode
                   value={qrData}
                   size={200}
