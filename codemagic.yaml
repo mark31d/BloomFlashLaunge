@@ -66,5 +66,5 @@ workflows:
     publishing:
       app_store_connect:
         auth: integration
-        submit_to_app_store: true
-        copyright: BrioCourt Lounge 2025
+        submit_to_app_store: false
+        copyright: Abacus Driving Academia Inc.
